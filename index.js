@@ -122,8 +122,7 @@ jsonfile.readFile(itemsListJSON, function (err, obj) {
 
                 var refresh = setInterval(function () {
                     //krece na 1. sekundu da radi
-					if (moment().seconds() == 6) {
-                        console.log(moment().seconds());
+					if (moment().seconds() == 3) {
 						refreshFunction()
 						clearInterval(refresh);
 					}
@@ -179,9 +178,6 @@ function getitemsPrice() {
     selectedItems.forEach(function (value) {
         searchString = searchString + "&category_730_Weapon%5B%5D=" + value;
     })
-  //  console.log(selectedExterior); // min, ft i ostalo
-   // console.log(selectedItems); //obelezeni u dropdown
-  //  console.log(searchString);
     ifERROR = false;
     request({
         url: "http://steamcommunity.com/market/search/render/?country=RS&language=english&currency=3&appid=730&start=0&count=100&query=" + searchString + "&format=json",
@@ -228,7 +224,6 @@ function getitemsPrice() {
                     })
                 });
             io.emit('alert', "ok");
-            console.log('ok');
             }
         );
         }
@@ -236,12 +231,10 @@ function getitemsPrice() {
         if (response.statusCode === 429) {
             ifERROR = true;
             io.emit('alert', "error");
-            console.log('error');
         }
         if (error) {
             ifERROR = true;
             io.emit('alert', "error");
-            console.log('error');
         }
     });
 
