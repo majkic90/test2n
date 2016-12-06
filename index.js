@@ -120,7 +120,14 @@ jsonfile.readFile(itemsListJSON, function (err, obj) {
                     });
                 })();
 
-                refreshFunction();
+                var refresh = setInterval(function () {
+                    //krece na 1. sekundu da radi
+					if (moment().seconds() == 2) {
+                        console.log(moment().seconds());
+						refreshFunction()
+						clearInterval(refresh);
+					}
+				}, 100);
             }
         })
     })
