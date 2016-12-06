@@ -3,6 +3,14 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var PORT = process.env.PORT || 8080;
 
+var moment = require('moment');
+var ko = require('knockout');
+var request = require("request");
+var asyncForEach = require('async-foreach').forEach;
+var jsdom = require('jsdom');
+var fs = require('fs'),
+    jsonfile = require('jsonfile');
+
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 })
@@ -14,20 +22,11 @@ io.on('connection', function (socket) {
 });
 
 
-var fs = require('fs'),
-    jsonfile = require('jsonfile'),
-    configJSON = 'json/config.json',
-    config = [],
+var configJSON = 'json/config.json',
     itemsListJSON = 'json/items.json',
     advancedSearch = 'json/advancedSearch.json',
     knifeSearchList = 'json/knifeSearchList.json',
     searchList = 'json/searchList.json';
-
-var moment = require('moment');
-var ko = require('knockout');
-var request = require("request");
-var asyncForEach = require('async-foreach').forEach;
-var jsdom = require('jsdom');
 
 var ifERROR = false,
     itemsNames = [],
