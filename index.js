@@ -122,7 +122,7 @@ jsonfile.readFile(itemsListJSON, function (err, obj) {
 
                 var refresh = setInterval(function () {
                     //krece na 1. sekundu da radi
-					if (moment().seconds() == 9) {
+					if (moment().seconds() == 6) {
 						refreshFunction()
 						clearInterval(refresh);
 					}
