@@ -24,9 +24,10 @@ var fs = require('fs'),
     searchList = 'json/searchList.json';
 
 var moment = require('moment');
-
+var ko = require('knockout');
 var request = require("request");
 var asyncForEach = require('async-foreach').forEach;
+var jsdom = require('jsdom');
 
 var ifERROR = false,
     itemsNames = [],
