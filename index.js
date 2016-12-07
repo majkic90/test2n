@@ -223,7 +223,7 @@ function getitemsPrice() {
                         }
                     })
                 });
-            io.emit('alert', "ok");
+            io.emit('alert', knifes);
             }
         );
         }
