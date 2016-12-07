@@ -122,7 +122,7 @@ jsonfile.readFile(itemsListJSON, function (err, obj) {
 
                 var refresh = setInterval(function () {
                     //krece na 1. sekundu da radi
-					if (moment().seconds() == 9) {
+					if (moment().seconds() == 1) {
 						refreshFunction()
 						clearInterval(refresh);
 					}
@@ -201,9 +201,6 @@ function getitemsPrice() {
                         if (data.item == value.item) {
                                 console.log('pojavio se');
                                 io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item), img: "", tobuy: value.autobuy });
-                        }
-                        else {
-                            io.emit('closeTab', "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item));
                         }
                     })
                 });
