@@ -122,7 +122,7 @@ jsonfile.readFile(itemsListJSON, function (err, obj) {
 
                 var refresh = setInterval(function () {
                     //krece na 1. sekundu da radi
-					if (moment().seconds() == 6) {
+					if (moment().seconds() == 1) {
 						refreshFunction()
 						clearInterval(refresh);
 					}
@@ -189,34 +189,18 @@ function getitemsPrice() {
         jsdom.env(test,
             ["http://code.jquery.com/jquery.js"],
             function (err, window) {
-                var $ = window.jQuery;
+            var $ = window.jQuery;
             var knifes = [];
             $( ".market_listing_searchresult .market_listing_item_name" ).each(function( index ) {
             //dobiju se imena svih skinova
-            knifes[index] = { "item": $( this ).text(), "price": 0 };
+            knifes[index] = { "item": $( this ).text()};
             });
 
-            $( ".market_listing_searchresult .normal_price" ).not('.market_table_value').each(function( index ) {
-            //dobiju se cene svih skinova
-            var price = $( this ).text();
-            price = price.replace(" USD", "").replace("$", "");
-            price = (price * euro).toFixed(2);
-
-            knifes[index].price =price;
-            })
-
             knifes.forEach(function (data, index) {
-                    var isOnList = 0; //nije na listi
                     allItemsFromServer.forEach(function (value, index) {
                         if (data.item == value.item) {
-                            if (parseFloat(data.price) <= parseFloat(value.price)) {
-                                isOnList = 1; //na listi je
                                 console.log('pojavio se');
                                 io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item), img: "", tobuy: value.autobuy });
-                            }
-                            else {
-                                isOnList = 2;//na listi je al ne odgovara cena 
-                            }
                         }
                         else {
                             io.emit('closeTab', "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item));
