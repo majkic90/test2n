@@ -167,14 +167,13 @@ function getitemsPrice() {
         searchString = searchString + "&category_730_Weapon%5B%5D=" + value;
     })
 
-    console.log(searchString);
     ifERROR = false;
     request({
         url: "http://steamcommunity.com/market/search/render/?country=RS&language=english&currency=3&appid=730&start=0&count=100&query=" + searchString + "&format=json",
         json: true
     }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
-            
+        
         var test = body.results_html;
         jsdom.env(test,
             ["http://code.jquery.com/jquery.js"],
@@ -187,7 +186,9 @@ function getitemsPrice() {
             });
 
             knifes.forEach(function (data, index) {
+               
                     allItemsFromServer.forEach(function (value, index) {
+                        console.log(value);
                         if (data.item == value.item) {
                                 console.log('pojavio se');
                                 io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item), img: "", tobuy: value.autobuy });
