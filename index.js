@@ -122,7 +122,7 @@ jsonfile.readFile(itemsListJSON, function (err, obj) {
 
                 var refresh = setInterval(function () {
                     //krece na 1. sekundu da radi
-					if (moment().seconds() == 9) {
+					if (moment().seconds() == 6) {
 						refreshFunction()
 						clearInterval(refresh);
 					}
@@ -204,6 +204,7 @@ function getitemsPrice() {
                         }
                     })
                 });
+            console.log('ok');
             io.emit('alert', "ok");
             }
         );
@@ -211,10 +212,12 @@ function getitemsPrice() {
 
         if (response.statusCode === 429) {
             ifERROR = true;
+            console.log('error');
             io.emit('alert', "error");
         }
         if (error) {
             ifERROR = true;
+            console.log('error');
             io.emit('alert', "error");
         }
     });
