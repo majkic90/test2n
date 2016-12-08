@@ -11,9 +11,16 @@ var jsdom = require('jsdom');
 var fs = require('fs'),
     jsonfile = require('jsonfile');
 
-app.get('/', function(req, res){
+app.get('/', function (req, res) {
     res.sendFile(__dirname + '/index.html');
 })
+
+var searchString = "lore%2Bgamma%2Bcrimson%2Bhowl%2Bmedusa%2Bautotronic%2Btiger%2Bserpent%2Bmarble_fade&category_730_Exterior%5B%5D=tag_WearCategory0&category_730_Exterior%5B%5D=tag_WearCategory1&category_730_Exterior%5B%5D=tag_WearCategory2&category_730_Weapon%5B%5D=tag_weapon_ak47&category_730_Weapon%5B%5D=tag_weapon_awp&category_730_Weapon%5B%5D=tag_weapon_m4a1&category_730_Weapon%5B%5D=tag_weapon_bayonet&category_730_Weapon%5B%5D=tag_weapon_knife_karambit&category_730_Weapon%5B%5D=tag_weapon_knife_m9_bayonet"
+
+var allItemsFromServer = [{ "item": "★ Karambit | Gamma Doppler (Factory New)", "price": "600", "csgofast": "554.82", "autobuy": true }, { "item": "★ Karambit | Lore (Minimal Wear)", "price": "500", "csgofast": "705.99", "autobuy": true }, { "item": "★ Karambit | Lore (Factory New)", "price": "600", "csgofast": "1158.25", "autobuy": true }, { "item": "★ M9 Bayonet | Lore (Minimal Wear)", "price": "600", "csgofast": "714.07", "autobuy": true }, { "item": "★ M9 Bayonet | Lore (Factory New)", "price": "600", "csgofast": "970.85", "autobuy": true }, { "item": "★ StatTrak™ Karambit | Lore (Minimal Wear)", "price": "600", "csgofast": "", "autobuy": true }, { "item": "★ StatTrak™ Karambit | Lore (Factory New)", "price": "600", "csgofast": "", "autobuy": true }, { "item": "★ StatTrak™ M9 Bayonet | Lore (Minimal Wear)", "price": "600", "csgofast": "", "autobuy": true }, { "item": "★ StatTrak™ M9 Bayonet | Lore (Factory New)", "price": "600", "csgofast": "", "autobuy": true }, { "item": "AWP | Dragon Lore (Field-Tested)", "price": "600", "csgofast": "752.51", "autobuy": true }, { "item": "AWP | Dragon Lore (Minimal Wear)", "price": "600", "csgofast": "942.08", "autobuy": true }, { "item": "★ StatTrak™ Karambit | Crimson Web (Minimal Wear)", "price": "600", "csgofast": "480.14", "autobuy": true }, { "item": "★ StatTrak™ Karambit | Crimson Web (Factory New)", "price": "600", "csgofast": "", "autobuy": true }, { "item": "M4A4 | Howl (Minimal Wear)", "price": "500", "csgofast": "374.61", "autobuy": true }, { "item": "M4A4 | Howl (Factory New)", "price": "500", "csgofast": "624.36", "autobuy": true }, { "item": "AWP | Medusa (Minimal Wear)", "price": "500", "csgofast": "477.60", "autobuy": true }, { "item": "AWP | Medusa (Factory New)", "price": "500", "csgofast": "878.21", "autobuy": true }, { "item": "AWP | Dragon Lore (Factory New)", "price": "500", "csgofast": "1414.18", "autobuy": true }, { "item": "StatTrak™ M4A4 | Howl (Field-Tested)", "price": "500", "csgofast": "775.57", "autobuy": true }, { "item": "★ Karambit | Autotronic (Factory New)", "price": "500", "csgofast": "748.76", "autobuy": true }, { "item": "★ StatTrak™ Karambit | Autotronic (Minimal Wear)", "price": "500", "csgofast": "", "autobuy": true }, { "item": "★ StatTrak™ Karambit | Gamma Doppler (Factory New)", "price": "500", "csgofast": "965.77", "autobuy": true }, { "item": "★ StatTrak™ M9 Bayonet | Marble Fade (Factory New)", "price": "500", "csgofast": "507.63", "autobuy": true }, { "item": "★ StatTrak™ Karambit | Tiger Tooth (Factory New)", "price": "500", "csgofast": "506.79", "autobuy": true }, { "item": "★ StatTrak™ Karambit | Marble Fade (Factory New)", "price": "500", "csgofast": "575.32", "autobuy": true }, { "item": "★ StatTrak™ Karambit | Fade (Factory New)", "price": "500", "csgofast": "484.37", "autobuy": true }, { "item": "StatTrak™ M4A4 | Howl (Factory New)", "price": "500", "csgofast": "1568.51", "autobuy": true }, { "item": "StatTrak™ M4A4 | Howl (Minimal Wear)", "price": "500", "csgofast": "1048.44", "autobuy": true }, { "item": "★ M9 Bayonet | Crimson Web (Factory New)", "price": "500", "csgofast": "3203.45", "autobuy": true }, { "item": "★ Karambit | Crimson Web (Factory New)", "price": "500", "csgofast": "1651.19", "autobuy": true }, { "item": "★ StatTrak™ Karambit | Lore (Factory New)", "price": "500", "csgofast": "", "autobuy": true }, { "item": "StatTrak™ M9 Bayonet | Gamma Doppler (Factory New)", "price": "500", "csgofast": "", "autobuy": true }, { "item": "AK-47 | Fire Serpent (Factory New)", "price": "500", "csgofast": "505.37", "autobuy": true }, { "item": "StatTrak™ AK-47 | Fire Serpent (Field-Tested)", "price": "500", "csgofast": "677.78", "autobuy": true }, { "item": "StatTrak™ AK-47 | Fire Serpent (Minimal Wear)", "price": "500", "csgofast": "914.06", "autobuy": true }, { "item": "★ Karambit | Marble Fade (Factory New)", "price": "500", "csgofast": "323.01", "autobuy": false }, { "item": "★ StatTrak™ Karambit | Fade (Factory New)", "price": "500", "csgofast": "484.37", "autobuy": true }];
+
+var ifERROR = false,
+    refreshTime = 10000;
 
 io.on('connection', function (socket) {
     socket.send("connect");
@@ -21,106 +28,13 @@ io.on('connection', function (socket) {
     });
 });
 
-
-var configJSON = 'json/config.json',
-    itemsListJSON = 'json/items.json',
-    advancedSearch = 'json/advancedSearch.json',
-    knifeSearchList = 'json/knifeSearchList.json'
-
-var ifERROR = false,
-    itemsNames = [],
-    refreshTime = 10000;
-
-var knifeChoices = [];
-var selectedItems = [];
-var testAdvanced = [];
-var allItemsFromServer = [];
-
-var euro = 1;
-
-
-        jsonfile.readFile(knifeSearchList, function (err, obj) {
-            if(!err){
-                selectedItems = obj;
-            }
-        else console.log(err);
-        });
-         
-
-knifeExteriorChoices = [{
-        value: 0,
-        name: 'Factory New',
-        isSelected: true
-    },
-    {
-        value: 1,
-        name: 'Minimal Wear',
-        isSelected: true
-    },
-    {
-        value: 2,
-        name: 'Field-Tested',
-        isSelected: true
-    },
-    {
-        value: 3,
-        name: 'Well-Worn',
-        isSelected: false
-    },
-    {
-        value: 4,
-        name: 'Battle-Scarred',
-        isSelected: false
-    },
-];
-
-selectedExterior = (function () {
-    return ko.utils.arrayFilter(knifeExteriorChoices, function (item) {
-        return item.isSelected;
-    });
-})();
-
-request({
-    url: "https://api.myjson.com/bins/1lf9x",
-    json: true
-}, function (error, response, body) {
-
-    if (!error && response.statusCode === 200) {
-    var obj = body;
-    //itemi koje trazis
-    itemsNames = obj;
-    allItemsFromServer  =itemsNames;
-    jsonfile.readFile(advancedSearch, function (err, obj) {
-        obj.forEach(function (data) {
-            testAdvanced.push({
-                name: data.name,
-                searchname: data.searchname,
-                isSelected: true
-            })
-        })
-        jsonfile.readFile(configJSON, function (err, config) {
-            if (typeof config[0].sound !== "undefined" && typeof config[0].search !== "undefined" && typeof config[0].refreshTime !== "undefined") {
-                refreshTime=config[0].refreshTime;
-
-                selectedAdvanced = (function () {
-                    return ko.utils.arrayFilter(testAdvanced, function (item) {
-                        return item.isSelected;
-                    });
-                })();
-
-                var refresh = setInterval(function () {
-                    //krece na 1. sekundu da radi
-					if (moment().seconds() == 6) {
-						refreshFunction()
-						clearInterval(refresh);
-					}
-				}, 100);
-            }
-        })
-    })
+var refresh = setInterval(function () {
+    //krece na 1. sekundu da radi
+    if (moment().seconds() == 1) {
+        refreshFunction()
+        clearInterval(refresh);
     }
-})
-
+}, 100);
 
 function refreshFunction() {
     asyncForEach([1], function () {
@@ -131,7 +45,7 @@ function refreshFunction() {
         if (ifERROR) {
             setTimeout(function () {
                 refreshFunction();
-            }, 20000);
+            }, 15000);
         }
         else {
             refreshFunction();
@@ -140,73 +54,43 @@ function refreshFunction() {
 };
 
 function getitemsPrice() {
-
-    var searchFilter = [],
-        searchString = "";
-
-    selectedAdvanced.forEach(function (value) {
-        searchFilter.push(value);
-    });
-    searchFilter.forEach(function (value, index) {
-        if (searchFilter.length == index + 1) {
-            searchString = searchString + value.searchname;
-        }
-        else {
-            searchString = searchString + value.searchname + "%2B";
-        }
-    });
-    if (selectedExterior.length < 1) {
-        searchString = searchString + "&category_730_ItemSet%5B%5D=any&category_730_ProPlayer%5B%5D=any&category_730_StickerCapsule%5B%5D=any&category_730_TournamentTeam%5B%5D=any";
-    }
-
-    selectedExterior.forEach(function (value) {
-        searchString = searchString + "&category_730_Exterior%5B%5D=tag_WearCategory" + value.value;
-    });
-
-    selectedItems.forEach(function (value) {
-        searchString = searchString + "&category_730_Weapon%5B%5D=" + value;
-    })
-
     ifERROR = false;
     request({
         url: "http://steamcommunity.com/market/search/render/?country=RS&language=english&currency=3&appid=730&start=0&count=100&query=" + searchString + "&format=json",
         json: true
     }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
-        
-        var test = body.results_html;
-        jsdom.env(test,
-            ["http://code.jquery.com/jquery.js"],
-            function (err, window) {
-            var $ = window.jQuery;
-            var knifes = [];
-            $( ".market_listing_searchresult .market_listing_item_name" ).each(function( index ) {
-            //dobiju se imena svih skinova
-            knifes[index] = { "item": $( this ).text()};
-            });
+            jsdom.env(body.results_html,
+                ["http://code.jquery.com/jquery.js"],
+                function (err, window) {
+                    var $ = window.jQuery;
+                    var knifes = [];
 
-            knifes.forEach(function (data, index) {
-                    allItemsFromServer.forEach(function (value, index) {
-                        if (data.item == value.item) {
+                    $(".market_listing_searchresult .market_listing_item_name").each(function (index) {
+                        knifes[index] = { "item": $(this).text() };
+                    });
+
+                    knifes.forEach(function (data, index) {
+                        allItemsFromServer.forEach(function (value, index) {
+                            if (data.item == value.item) {
                                 console.log('pojavio se');
                                 io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item), img: "", tobuy: value.autobuy });
                                 $.ajax({
-                                    url:"https://api.myjson.com/bins/3d1jx",
-                                    type:"POST",
-                                    data:'{"item":' + value.item + '}',
-                                    contentType:"application/json; charset=utf-8",
-                                    dataType:"json",
-                                    success: function(data, textStatus, jqXHR){
-                                            
+                                    url: "https://api.myjson.com/bins/3d1jx",
+                                    type: "POST",
+                                    data: '{"item":' + value.item + '}',
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (data, textStatus, jqXHR) {
                                     }
-                                });     
-                        }
-                    })
-                });
-            console.log('ok');
-            io.emit('alert', "ok");
-            }
-        );
+                                });
+                            }
+                        })
+                    });
+                    console.log('ok');
+                    io.emit('alert', "ok");
+                }
+            );
         }
 
         if (response.statusCode === 429) {
@@ -224,6 +108,6 @@ function getitemsPrice() {
 }
 
 
-http.listen(PORT, function(){
-    console.log('listen' , PORT);
+http.listen(PORT, function () {
+    console.log('listen', PORT);
 })
