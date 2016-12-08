@@ -30,7 +30,7 @@ io.on('connection', function (socket) {
 
 var refresh = setInterval(function () {
     //krece na 1. sekundu da radi
-    if (moment().seconds() == 5) {
+    if (moment().seconds() == 6) {
         refreshFunction()
         clearInterval(refresh);
     }
