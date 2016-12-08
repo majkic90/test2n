@@ -25,22 +25,19 @@ io.on('connection', function (socket) {
 var configJSON = 'json/config.json',
     itemsListJSON = 'json/items.json',
     advancedSearch = 'json/advancedSearch.json',
-    knifeSearchList = 'json/knifeSearchList.json',
-    searchList = 'json/searchList.json';
+    knifeSearchList = 'json/knifeSearchList.json'
 
 var ifERROR = false,
     itemsNames = [],
     refreshTime = 10000;
 
-var knifeChoices = [];
 var selectedItems = [];
 var testAdvanced = [];
 var allItemsFromServer = [];
 
 var euro = 1;
 
-jsonfile.readFile(searchList, function (err, obj) {
-    if(!err){
+
         jsonfile.readFile(knifeSearchList, function (err, obj) {
             if(!err){
                 selectedItems = obj;
@@ -60,10 +57,6 @@ jsonfile.readFile(searchList, function (err, obj) {
             } 
              }  
          });
-         knifeChoices = lista;
-    }
-   else console.log(err);
-});
 
 knifeExteriorChoices = [{
         value: 0,
@@ -184,6 +177,7 @@ function getitemsPrice() {
     selectedItems.forEach(function (value) {
         searchString = searchString + "&category_730_Weapon%5B%5D=" + value;
     })
+    console.log(searchString);
     ifERROR = false;
     request({
         url: "http://steamcommunity.com/market/search/render/?country=RS&language=english&currency=3&appid=730&start=0&count=100&query=" + searchString + "&format=json",
