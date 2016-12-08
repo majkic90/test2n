@@ -98,8 +98,13 @@ selectedExterior = (function () {
     });
 })();
 
-$.get("https://api.myjson.com/bins/1lf9x", function(data, textStatus, jqXHR) {
-    var obj = data;
+request({
+    url: "https://api.myjson.com/bins/1lf9x",
+    json: true
+}, function (error, response, body) {
+
+    if (!error && response.statusCode === 200) {
+    var obj = body;
     //itemi koje trazis
     itemsNames = obj;
     allItemsFromServer  =itemsNames;
@@ -131,7 +136,7 @@ $.get("https://api.myjson.com/bins/1lf9x", function(data, textStatus, jqXHR) {
             }
         })
     })
-
+    }
 })
 
 
