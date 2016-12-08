@@ -98,7 +98,46 @@ selectedExterior = (function () {
     });
 })();
 
-jsonfile.readFile(itemsListJSON, function (err, obj) {
+var jqxhr = $.get( "https://api.myjson.com/bins/1lf9x", function(data) {
+})
+  .done(function() {
+      console.log('done');
+    //itemi koje trazis
+    var obj = data
+    itemsNames = obj;
+    allItemsFromServer  =itemsNames;
+    jsonfile.readFile(advancedSearch, function (err, obj) {
+        obj.forEach(function (data) {
+            testAdvanced.push({
+                name: data.name,
+                searchname: data.searchname,
+                isSelected: true
+            })
+        })
+        jsonfile.readFile(configJSON, function (err, config) {
+            if (typeof config[0].sound !== "undefined" && typeof config[0].search !== "undefined" && typeof config[0].refreshTime !== "undefined") {
+                refreshTime=config[0].refreshTime;
+
+                selectedAdvanced = (function () {
+                    return ko.utils.arrayFilter(testAdvanced, function (item) {
+                        return item.isSelected;
+                    });
+                })();
+
+                var refresh = setInterval(function () {
+                    //krece na 1. sekundu da radi
+					if (moment().seconds() == 6) {
+						refreshFunction()
+						clearInterval(refresh);
+					}
+				}, 100);
+            }
+        })
+    })
+  })
+  .fail(function() {
+      console.log('fail');
+    jsonfile.readFile(itemsListJSON, function (err, obj) {
     //itemi koje trazis
     itemsNames = obj;
     allItemsFromServer  =itemsNames;
@@ -130,9 +169,8 @@ jsonfile.readFile(itemsListJSON, function (err, obj) {
             }
         })
     })
-
 })
-
+  })
 
 function refreshFunction() {
     asyncForEach([1], function () {
