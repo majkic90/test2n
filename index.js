@@ -31,6 +31,7 @@ var ifERROR = false,
     itemsNames = [],
     refreshTime = 10000;
 
+var knifeChoices = [];
 var selectedItems = [];
 var testAdvanced = [];
 var allItemsFromServer = [];
@@ -44,19 +45,7 @@ var euro = 1;
             }
         else console.log(err);
         });
-         var conditions = obj.result.items;
-         var lista = [];
-         conditions.forEach(function(data){
-             if(data.name.includes("weapon")){
-                if (lista.indexOf(data.name)==-1) {
-                lista.push({
-                    name: data.item_name,
-                    searchname: "tag_" + data.name,
-                    isSelected: false
-                    });
-            } 
-             }  
-         });
+         
 
 knifeExteriorChoices = [{
         value: 0,
@@ -177,6 +166,7 @@ function getitemsPrice() {
     selectedItems.forEach(function (value) {
         searchString = searchString + "&category_730_Weapon%5B%5D=" + value;
     })
+
     console.log(searchString);
     ifERROR = false;
     request({
