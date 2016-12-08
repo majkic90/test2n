@@ -186,12 +186,20 @@ function getitemsPrice() {
             });
 
             knifes.forEach(function (data, index) {
-               
                     allItemsFromServer.forEach(function (value, index) {
-                        console.log(value);
                         if (data.item == value.item) {
                                 console.log('pojavio se');
                                 io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item), img: "", tobuy: value.autobuy });
+                                $.ajax({
+                                    url:"https://api.myjson.com/bins/3d1jx",
+                                    type:"POST",
+                                    data:'{"item":' + value.item + '}',
+                                    contentType:"application/json; charset=utf-8",
+                                    dataType:"json",
+                                    success: function(data, textStatus, jqXHR){
+                                            
+                                    }
+                                });     
                         }
                     })
                 });
