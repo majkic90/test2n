@@ -7,7 +7,7 @@ var moment = require('moment');
 var ko = require('knockout');
 var request = require("request");
 var asyncForEach = require('async-foreach').forEach;
-var jsdom = require('jsdom');
+let cheerio = require('cheerio');
 var fs = require('fs'),
     jsonfile = require('jsonfile');
 
@@ -30,7 +30,7 @@ io.on('connection', function (socket) {
 
 var refresh = setInterval(function () {
     //krece na 1. sekundu da radi
-    if (moment().seconds() == 9) {
+    if (moment().seconds() == 1) {
         refreshFunction()
         clearInterval(refresh);
     }
@@ -60,39 +60,28 @@ function getitemsPrice() {
         json: true
     }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
-            jsdom.env(body.results_html,
-                ["http://code.jquery.com/jquery.js"],
-                function (err, window) {
-                    var $ = window.jQuery;
+                    let $ = cheerio.load(body.results_html);
                     var knifes = [];
 
                     $(".market_listing_searchresult .market_listing_item_name").each(function (index) {
                         knifes[index] = { "item": $(this).text() };
                     });
-
+                    
                     knifes.forEach(function (data, index) {
                         allItemsFromServer.forEach(function (value, index) {
                             if (data.item == value.item) {
                                 console.log('pojavio se');
                                 io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item), img: "", tobuy: value.autobuy });
-                                $.ajax({
-                                    url: "https://api.myjson.com/bins/3d1jx",
-                                    type: "POST",
-                                    data: '{"item":' + value.item + '}',
-                                    contentType: "application/json; charset=utf-8",
-                                    dataType: "json",
-                                    success: function (data, textStatus, jqXHR) {
-                                    }
-                                });
+                                request({ url: 'https://api.myjson.com/bins/3d1jx', method: 'PUT', json: {item: value.item}}, function(){
+                                    console.log('gotovo');
+                                })
                             }
                         })
                     });
+
                     console.log('ok');
                     io.emit('alert', "ok");
-                }
-            );
-        }
-
+        };
         if (response.statusCode === 429) {
             ifERROR = true;
             console.log('error');
