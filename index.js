@@ -26,6 +26,9 @@ var startTime = 6;
 
 io.on('connection', function (socket) {
     socket.send("connect");
+    socket.on('disconnect', function () {
+    });
+});
 
 var refresh = setInterval(function () {
     if (moment().seconds() == startTime) {
@@ -67,24 +70,20 @@ function getitemsPrice() {
                         allItemsFromServer.forEach(function (value, index) {
                             if (data.item == value.item) {
                                 console.log('pojavio se noz!');
-                                socket.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item), img: "", tobuy: value.autobuy });
+                                io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item), img: "", tobuy: value.autobuy });
                                 request({ url: 'https://api.myjson.com/bins/3d1jx', method: 'PUT', json: {item: value.item, time: new Date()}}, function(){});
                             }
                         })
                     });
-                    socket.emit('alert', "ok");
+                    io.emit('alert', "ok");
         };
         if (response.statusCode === 429 || error) {
             ifERROR = true;
             console.log('error');
-            socket.emit('alert', "error");
+            io.emit('alert', "error");
         }
     });
 }
-
-    socket.on('disconnect', function () {
-    });
-});
 
 http.listen(PORT, function () {
     console.log('listen', PORT);
