@@ -22,7 +22,7 @@ var allItemsFromServer = [{ "item": "★ Karambit | Gamma Doppler (Factory New)"
 var ifERROR = false;
 var refreshTime = 12000;
 var knifes = [];
-var startTime = 0;
+var startTime = 1;
 
 io.on('connection', function (socket) {
     socket.send("connect");
