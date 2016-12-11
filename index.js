@@ -22,7 +22,7 @@ var allItemsFromServer = [{ "item": "★ Karambit | Gamma Doppler (Factory New)"
 var ifERROR = false;
 var refreshTime = 12000;
 var knifes = [];
-var startTime = 9;
+var startTime = 12;
 
 io.on('connection', function (socket) {
     socket.send("connect");
@@ -65,7 +65,8 @@ function getitemsPrice() {
                     knifes = [];
                     $(".market_listing_searchresult .market_listing_item_name").each(function (index) {
                         knifes[index] = { "item": $(this).text() };
-                    });        
+                    });    
+                    console.log(knifes);    
                     knifes.forEach(function (data, index) {
                         allItemsFromServer.forEach(function (value, index) {
                             if (data.item == value.item) {
@@ -75,12 +76,12 @@ function getitemsPrice() {
                             }
                         })
                     });
-                    io.emit('alert', "ok");
+                    io.emit('alert', "ok: " + startTime);
         };
         if (response.statusCode === 429 || error) {
             ifERROR = true;
             console.log('error');
-            io.emit('alert', "error");
+            io.emit('alert', "error: " + startTime);
         }
     });
 }
