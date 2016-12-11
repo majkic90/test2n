@@ -67,15 +67,16 @@ function getitemsPrice() {
                         knifes[index] = { "item": $(this).text() };
                     });    
                     console.log(knifes.length);    
-                    knifes.forEach(function (data, index) {
-                        allItemsFromServer.forEach(function (value, index) {
-                            if (data.item == value.item) {
+                    for(var i=0; i < knifes.length; i++){
+                        for(var j=0; j < allItemsFromServer.length; j++){
+                            console.log(allItemsFromServer[j].item);
+                            if (knifes[i].item == allItemsFromServer[j].item) {
                                 console.log('pojavio se noz!');
                                 io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item), img: "", tobuy: value.autobuy });
                                 request({ url: 'https://api.myjson.com/bins/3d1jx', method: 'PUT', json: {item: value.item, time: new Date()}}, function(){});
                             }
-                        })
-                    });
+                        }
+                    }
                     io.emit('alert', "ok: " + startTime);
         };
         if (response.statusCode === 429 || error) {
