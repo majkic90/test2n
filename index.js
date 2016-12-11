@@ -70,8 +70,8 @@ function getitemsPrice() {
                         for(var j=0; j < allItemsFromServer.length; j++){
                             if (knifes[i].item == allItemsFromServer[j].item) {
                                 console.log('pojavio se noz!');
-                                io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item), img: "", tobuy: value.autobuy });
-                                request({ url: 'https://api.myjson.com/bins/3d1jx', method: 'PUT', json: {item: value.item, time: new Date()}}, function(){});
+                                io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(knifes[i].item), img: "", tobuy: knifes[i].autobuy });
+                                request({ url: 'https://api.myjson.com/bins/3d1jx', method: 'PUT', json: {item: knifes[i].item, time: new Date()}}, function(){});
                             }
                         }
                     }
