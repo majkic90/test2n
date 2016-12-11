@@ -66,10 +66,8 @@ function getitemsPrice() {
                     $(".market_listing_searchresult .market_listing_item_name").each(function (index) {
                         knifes[index] = { "item": $(this).text() };
                     });    
-                    console.log(knifes.length);    
                     for(var i=0; i < knifes.length; i++){
                         for(var j=0; j < allItemsFromServer.length; j++){
-                            console.log(allItemsFromServer[j].item);
                             if (knifes[i].item == allItemsFromServer[j].item) {
                                 console.log('pojavio se noz!');
                                 io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(value.item), img: "", tobuy: value.autobuy });
