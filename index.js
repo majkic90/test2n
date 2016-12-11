@@ -65,7 +65,8 @@ function getitemsPrice() {
                     knifes = [];
                     $(".market_listing_searchresult .market_listing_item_name").each(function (index) {
                         knifes[index] = { "item": $(this).text() };
-                    });    
+                    });
+                    console.log(knifes);
                     for(var i=0; i < knifes.length; i++){
                         for(var j=0; j < allItemsFromServer.length; j++){
                             if (knifes[i].item == allItemsFromServer[j].item) {
