@@ -26,9 +26,6 @@ var startTime = 1;
 
 io.on('connection', function (socket) {
     socket.send("connect");
-    knifes.forEach(function(){
-        $("#knifesList").append('<li><a>' + knifes[i].item + '</a></li>');
-    })
     socket.on('disconnect', function () {
     });
 });
