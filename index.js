@@ -27,7 +27,7 @@ io.on('connection', function (socket) {
 });
 
 app.get('/', function (req, res) {
-    response.end(knifes);
+    res.end(knifes);
 })
 
 var refresh = setInterval(function () {
