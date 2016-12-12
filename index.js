@@ -82,7 +82,6 @@ function getitemsPrice() {
                                 request({ url: 'https://api.myjson.com/bins/3d1jx', method: 'PUT', json: {item: knifes[i].item, time: new Date()}}, function(){});
                             }
                         }
-                         $("#knifesList").append('<li><a>' + knifes[i].item + '</a></li>');
                     }
                    
                     io.emit('alert', "ok: " + startTime);
