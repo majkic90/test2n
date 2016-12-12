@@ -72,6 +72,8 @@ function getitemsPrice() {
                         price[index] = { "price": $(this).text() };
                     });
 
+                    $("#knifesList").empty();
+
                     for(var i=0; i < knifes.length; i++){
                         for(var j=0; j < allItemsFromServer.length; j++){
                             if (knifes[i].item == allItemsFromServer[j].item) {
@@ -80,7 +82,9 @@ function getitemsPrice() {
                                 request({ url: 'https://api.myjson.com/bins/3d1jx', method: 'PUT', json: {item: knifes[i].item, time: new Date()}}, function(){});
                             }
                         }
+                         $("#knifesList").append('<li><a>' + knifes[i].item + '</a></li>');
                     }
+                   
                     io.emit('alert', "ok: " + startTime);
         };
         if (response.statusCode === 429 || error) {
