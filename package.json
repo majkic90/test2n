@@ -9,7 +9,7 @@
   },
   "devDependencies": {},
   "engines": {
-    "node": "^5.12.0"
+    "node": "^3.8.6"
   },
   "author": "",
   "license": "ISC",
