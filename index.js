@@ -71,9 +71,7 @@ function getitemsPrice() {
                     $(".market_listing_searchresult .normal_price").each(function (index) {
                         price[index] = { "price": $(this).text() };
                     });
-
-                    $("#knifesList").empty();
-
+                    console.log(price);
                     for(var i=0; i < knifes.length; i++){
                         for(var j=0; j < allItemsFromServer.length; j++){
                             if (knifes[i].item == allItemsFromServer[j].item) {
