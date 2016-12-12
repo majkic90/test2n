@@ -26,6 +26,9 @@ var startTime = 5;
 
 io.on('connection', function (socket) {
     socket.send("connect");
+    socket.on('message', function (msg) {
+        console.log('Message Received: ', msg);
+    });
     socket.on('disconnect', function () {
     });
 });
@@ -63,9 +66,15 @@ function getitemsPrice() {
         if (!error && response.statusCode === 200) {
                     let $ = cheerio.load(body.results_html);                  
                     knifes = [];
+                    var price = [];
                     $(".market_listing_searchresult .market_listing_item_name").each(function (index) {
                         knifes[index] = { "item": $(this).text() };
                     });
+
+                    $(".market_listing_searchresult .normal_price").each(function (index) {
+                        price[index] = { "price": $(this).text() };
+                    });
+
                     for(var i=0; i < knifes.length; i++){
                         for(var j=0; j < allItemsFromServer.length; j++){
                             if (knifes[i].item == allItemsFromServer[j].item) {
