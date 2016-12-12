@@ -68,11 +68,11 @@ function getitemsPrice() {
                         knifes[index] = { "item": $(this).text() };
                     });
 
-                    $(".normal_price").not('.market_table_value').each(function (index) {
-                        price[index] = { "item": $(this).text().substr(1) };
-                    });
+                    // $(".normal_price").not('.market_table_value').each(function (index) {
+                    //     price[index] = { "item": $(this).text().substr(1) };
+                    // });
+                    // console.log(price);
 
-                    console.log(price);
                     for(var i=0; i < knifes.length; i++){
                         for(var j=0; j < allItemsFromServer.length; j++){
                             if (knifes[i].item == allItemsFromServer[j].item) {
