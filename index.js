@@ -83,7 +83,7 @@ function getitemsPrice() {
                             }
                         }
                     }
-                   
+                    console.log('ok');
                     io.emit('alert', "ok: " + startTime);
         };
         if (response.statusCode === 429 || error) {
