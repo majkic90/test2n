@@ -26,12 +26,11 @@ var startTime = 1;
 
 io.on('connection', function (socket) {
     socket.send("connect");
+     socket.on('sendon', function (data) {
+        console.log(data);
+    });
     socket.on('disconnect', function () {
     });
-});
-
-io.on('message', function (msg) {
-   console.log('Message Received: ', msg);
 });
 
 var refresh = setInterval(function () {
