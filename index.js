@@ -26,9 +26,6 @@ var startTime = 1;
 
 io.on('connection', function (socket) {
     socket.send("connect");
-     socket.on('sendon', function (data) {
-        console.log(data);
-    });
     socket.on('disconnect', function () {
     });
 });
