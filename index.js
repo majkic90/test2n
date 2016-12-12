@@ -30,6 +30,10 @@ io.on('connection', function (socket) {
     });
 });
 
+function hendler(request, response){
+    response.end(knifes);
+}
+
 var refresh = setInterval(function () {
     if (moment().seconds() == startTime) {
         refreshFunction()
