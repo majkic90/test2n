@@ -68,7 +68,9 @@ function getitemsPrice() {
                         knifes[index] = { "item": $(this).text() };
                     });
 
-                    var price = $(this).find(".normal_price").not('.market_table_value');
+                    $(".normal_price").not('.market_table_value').each(function (index) {
+                        price[index] = { "item": $(this).text() };
+                    });
 
                     console.log(price);
                     for(var i=0; i < knifes.length; i++){
