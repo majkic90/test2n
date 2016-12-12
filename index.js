@@ -24,12 +24,6 @@ var refreshTime = 12000;
 var knifes = [];
 var startTime = 1;
 
-function onRequest(request, response){
-    response.writeHead(200, {'Content-Type': 'text/plain'});
-    response.write("index.html");
-    response.end();
-}
-
 io.on('connection', function (socket) {
     socket.send("connect");
     socket.on('disconnect', function () {
@@ -100,6 +94,6 @@ function getitemsPrice() {
     });
 }
 
-http.createServer(onRequest).listen(PORT, function () {
+http.listen(PORT, function () {
     console.log('listen', PORT);
 })
