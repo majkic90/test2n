@@ -69,7 +69,7 @@ function getitemsPrice() {
                     });
 
                     $(".normal_price").not('.market_table_value').each(function (index) {
-                        price[index] = { "item": $(this).text() };
+                        price[index] = { "item": $(this).text().substr(1) };
                     });
 
                     console.log(price);
