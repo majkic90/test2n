@@ -35,7 +35,7 @@ io.on('connection', function (socket) {
 });
 
 var refresh = setInterval(function () {
-     if (((moment().seconds()<10?'0':'') + moment().seconds()).substring(1) == startTime) {
+     if (moment().seconds() == startTime) {
         refreshFunction()
         clearInterval(refresh);
     }
