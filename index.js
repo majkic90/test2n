@@ -65,7 +65,7 @@ function getitemsPrice() {
         json: true
     }, function (error, response, body) {
         if (!error && response.statusCode === 200) {
-                    let $ = cheerio.load(body.results_html);                  
+                    var $ = cheerio.load(body.results_html);                  
                     knifes = [];
                     var price = [];
                     $(".market_listing_searchresult .market_listing_item_name").each(function (index) {
