@@ -26,7 +26,7 @@ var allItemsFromServer = [{ "item": "★ Karambit | Gamma Doppler (Factory New)"
 var ifERROR = false;
 var refreshTime = 12000;
 var knifes = [];
-var startTime = 12;
+var startTime = 4;
 
 io.on('connection', function (socket) {
     socket.send("connect");
@@ -35,7 +35,7 @@ io.on('connection', function (socket) {
 });
 
 var refresh = setInterval(function () {
-     if (moment().seconds() == startTime) {
+     if (((moment().seconds()<10?'0':'') + moment().seconds()).substring(1) == startTime) {
         refreshFunction()
         clearInterval(refresh);
     }
