@@ -7,7 +7,7 @@ var moment = require('moment');
 var ko = require('knockout');
 var request = require("request");
 var asyncForEach = require('async-foreach').forEach;
-let cheerio = require('cheerio');
+var cheerio = require('cheerio');
 var fs = require('fs');
 var jsonfile = require('jsonfile');
 
