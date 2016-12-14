@@ -26,7 +26,7 @@ var allItemsFromServer = [{ "item": "★ Karambit | Gamma Doppler (Factory New)"
 var ifERROR = false;
 var refreshTime = 12000;
 var knifes = [];
-var startTime = 1;
+var startTime = 4;
 
 io.on('connection', function (socket) {
     socket.send("connect");
@@ -68,6 +68,7 @@ function getitemsPrice() {
                     var $ = cheerio.load(body.results_html);                  
                     knifes = [];
                     var price = [];
+                    request({ url: 'http://jsonblob.com/api/jsonBlob/6b0d9b71c1f911e6871b859e14973c11', method: 'PUT', json: {item: 'test', time: 'test'}}, function(){});
                     $(".market_listing_searchresult .market_listing_item_name").each(function (index) {
                         knifes[index] = { "item": $(this).text() };
                     });
@@ -94,7 +95,7 @@ function getitemsPrice() {
                             if (knifes[i].item == allItemsFromServer[j].item) {
                                 console.log('pojavio se noz!');
                                 io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(knifes[i].item), img: "", tobuy: knifes[i].autobuy });
-                                request({ url: 'https://api.myjson.com/bins/3d1jx', method: 'PUT', json: {item: knifes[i].item, time: new Date()}}, function(){});
+                                request({ url: 'https://quarkbackend.com/getfile/majkic1990/items', method: 'PUT', json: {item: knifes[i].item, time: new Date()}}, function(){});
                             }
                         }
                     }
