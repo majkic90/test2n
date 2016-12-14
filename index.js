@@ -26,7 +26,7 @@ var allItemsFromServer = [{ "item": "★ Karambit | Gamma Doppler (Factory New)"
 var ifERROR = false;
 var refreshTime = 12000;
 var knifes = [];
-var startTime = 8;
+var startTime = 4;
 
 io.on('connection', function (socket) {
     socket.send("connect");
@@ -71,6 +71,18 @@ function getitemsPrice() {
                     $(".market_listing_searchresult .market_listing_item_name").each(function (index) {
                         knifes[index] = { "item": $(this).text() };
                     });
+    
+    // request({
+    //     url: "http://steamcommunity.com/market/listings/730/StatTrak%E2%84%A2%20AK-47%20%7C%20Blue%20Laminate%20%28Factory%20New%29/render?start=0&count=10&currency=3&language=english&format=json",
+    //     json: true
+    // }, function (error, response, body) {
+    //      var $ = cheerio.load(body.results_html); 
+
+    //                 $(".market_listing_price_with_fee").each(function (index) {
+    //                     console.log($(this).text().substr(1));
+    //                 });
+    //                 });
+                    
 
                     // $(".normal_price").not('.market_table_value').each(function (index) {
                     //     price[index] = { "item": $(this).text().substr(1) };
