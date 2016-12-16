@@ -68,7 +68,7 @@ function getitemsPrice() {
                     var $ = cheerio.load(body.results_html);                  
                     knifes = [];
                     var price = [];
-                    request({ url: 'http://jsonblob.com/api/jsonBlob/6b0d9b71c1f911e6871b859e14973c11', method: 'PUT', json: {item: 'test', time: 'test'}}, function(){});
+                    
                     $(".market_listing_searchresult .market_listing_item_name").each(function (index) {
                         knifes[index] = { "item": $(this).text() };
                     });
