@@ -37,7 +37,8 @@ var allItemsFromServer = [{ "item": "★ Karambit | Gamma Doppler (Factory New)"
 var ifERROR = false;
 var refreshTime = 12000;
 var knifes = [];
-var startTime = 2;
+var price = [];
+var startTime = 4;
 
 io.on('connection', function (socket) {
     socket.send("connect");
@@ -59,9 +60,7 @@ function refreshFunction() {
         setTimeout(done, refreshTime);
     }, function done() {
         if (ifERROR) {
-            setTimeout(function () {
                 refreshFunction();
-            }, refreshTime);
         }
         else {
             refreshFunction();
@@ -78,7 +77,7 @@ function getitemsPrice() {
         if (!error && response.statusCode === 200) {
                     var $ = cheerio.load(body.results_html);                  
                     knifes = [];
-                    var price = [];
+                    price = [];
                     
                     $(".market_listing_searchresult .market_listing_item_name").each(function (index) {
                         knifes[index] = { "item": $(this).text() };
@@ -91,23 +90,20 @@ function getitemsPrice() {
                     for(var i=0; i < knifes.length; i++){
                         for(var j=0; j < allItemsFromServer.length; j++){
                             if (knifes[i].item == allItemsFromServer[j].item) {
-                                console.log('pojavio se noz!');
                                 if(price[i].price <= allItemsFromServer[j].price){
-                                    io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(knifes[i].item), img: "", tobuy: knifes[i].autobuy });   
+                                    io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(knifes[i].item), img: "", tobuy: allItemsFromServer[j].autobuy });   
                                 }
                                 else{
                                     io.emit('hello', { text: "http://steamcommunity.com/market/listings/730/" + encodeURIComponent(knifes[i].item), img: "", tobuy: false });   
                                 }       
-                                request({ url: 'https://api.myjson.com/bins/3d1jx', method: 'PUT', json: {item: knifes[i].item, time: new Date(), price: price[i].price}}, function(){});
+                                request({ url: 'https://api.myjson.com/bins/3d1jx', method: 'PUT', json: {item: knifes[i].item, time: new Date(), price: price[i].price, tobuy: allItemsFromServer[j].autobuy}}, function(){});
                             }
                         }
                     }
-                    console.log('ok');
                     io.emit('alert', "ok: " + startTime);
-        };
-        if (response.statusCode === 429 || error) {
+        }
+        else{
             ifERROR = true;
-            console.log('error');
             io.emit('alert', "error: " + startTime);
         }
     });
